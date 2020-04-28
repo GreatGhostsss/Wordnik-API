@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!-- 🎉 S T Y L E 🎉 -->
+
+    <style>
+        body {
+            background-color: mediumspringgreen;
+            font-family: monospace;
+            margin: 0;
+            border: 3px antiquewhite solid;
+            height: 93vh;
+        }
+
+        * {
+            margin: 15px;
+        }
+
+        button {
+            font-size: 1rem;
+            font-family: monospace;
+
+        }
+
+        h2 {
+            font-size: 3rem;
+        }
+
+        #word {
+            font-size: 3rem;
+            color: white;
+            text-transform: capitalize;
+
+        }
+
+        #header1 {
+            font-size: 2rem;
+            text-decoration: underline;
+            text-transform: capitalize;
+        }
+
+        #header1Content {
+            font-size: 1.5rem;
+        }
+
+        ::selection {
+            background-color: pink;
+            color;
+            white;
+        }
+    </style>
+</head>
+<!-- 🎉 H T M L B O D Y 🎉 -->
+
+<body>
+
+    <h2>Here's some information from the WordNik API! 😇</h2>
+
+    <input type="text" id="userWord">
+    <button id="btn" onclick="whales()">Search!</button>
+    <div id="word"></div>
+    <div id="header1"></div>
+    <div id="header1Content"></div>
+
+
+    <!-- 🎉 J S 🎉 -->
+
+    <script>
+        async function whales() {
+            const userWord = document.getElementById("userWord").value;
+            const earl = "https://api.wordnik.com/v4/word.json/" + `${userWord}` +
+                "/relatedWords?useCanonical=false&limitPerRelationshipType=10&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5";
+            const response = await fetch(earl);
+            const data = await response.json();
+
+            const word = document.getElementById("word");
+            const header1 = document.getElementById("header1");
+            const header1Content = document.getElementById("header1Content");
+
+            word.innerHTML = userWord;
+            header1.innerHTML = data[1].relationshipType;
+            header1Content.innerHTML = data[1].words;
+        }
+    </script>
+</body>
+
+</html>
+
+
+<!-- put commas between the results  -->
